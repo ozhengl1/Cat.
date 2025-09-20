@@ -56,6 +56,7 @@ def main() -> None:
     ]
     print(f"Detected {len(image_filenames)} cats.")
 
+    image_filenames.sort()
     grouped_filenames = group_list(ungrouped_list=image_filenames, elements_per_group=CATS_PER_ROW)
 
     table_markdown = "\n".join([generate_gallery_table(image_filenames) for image_filenames in grouped_filenames])
