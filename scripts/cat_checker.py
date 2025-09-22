@@ -62,8 +62,6 @@ def check_if_within_template_outline_highlight_changes(template_image: Image.Ima
     annotated_image = Image.alpha_composite(cat_image, diff_mask) 
     return (not outline_violation_found), annotated_image
 
-def generated_highlighted_changes_image(template_image: Image.Image, cat_image: Image.Image) -> Image.Image:
-    return Image.Image()
 
 def generate_markdown_report_string(checks: dict[str, bool], cat_name: str, report_path: Path) -> str:
     markdown_report_string = f"### Preliminary Checks Report - `{cat_name}`: \n"
@@ -95,8 +93,6 @@ def generate_markdown_report_string(checks: dict[str, bool], cat_name: str, repo
         markdown_report_string += "|:x:|\n"
 
     markdown_report_string += "\n"
-
-    markdown_report_string += "<small><small>Note: Template outline violations are highlighted in red in the changes image.</small></small>\n"
 
     return markdown_report_string
 
@@ -133,7 +129,7 @@ def main() -> None:
 
     markdown_report_string = generate_markdown_report_string(CHECKS, cat_name, REPORT_OUTPUT_FOLDER_PATH)
 
-    with open(REPORT_OUTPUT_FOLDER_PATH / f"cat_name_preliminary_check_report.md", "w", encoding="utf-8") as f:
+    with open(REPORT_OUTPUT_FOLDER_PATH / f"{cat_name}_preliminary_check_report.md", "w", encoding="utf-8") as f:
         f.write(markdown_report_string)
 
     print(f"Done checking {image_path}.\nResults written to {REPORT_OUTPUT_FOLDER_PATH}.")
