@@ -30,8 +30,9 @@ jobs:
           git config --global user.name "cat-gallery-updater[bot]"
           git config --global user.email "cat-gallery-updater-bot@users.noreply.github.com"
           git add .
-          if git diff --cached --quiet; then
+          if git diff-index --quiet HEAD; then
             echo "No changes to commit."
           else
             git commit -m "Updated Cat gallery." -m "This is an automated action."
             git push
+          fi
