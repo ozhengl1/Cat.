@@ -1,7 +1,7 @@
 name: Perform preliminary checks on cats in PR
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - reopened
@@ -23,8 +23,16 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: pr-code
+          fetch-depth: 0
+      
+      - uses: actions/checkout@v5
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.base_ref }}
+          path: main-repo
+          fetch-depth: 0
 
       - uses: actions/setup-python@v6
         with:
@@ -38,6 +46,7 @@ jobs:
         id: changes
         run: |
           set -e
+          cd pr-code
 
           if [[ "${{ github.event.action }}" == "opened" || "${{ github.event.action }}" == "reopened" ]]; then
               png_files=$(git diff --name-status $(git merge-base origin/${{ github.base_ref }} HEAD) HEAD \
@@ -66,7 +75,7 @@ jobs:
 
           for f in "${files[@]}"; do
             echo "Running script on '$f'"
-            python scripts/cat_checker.py "$f"
+            python main-repo/scripts/cat_checker.py "pr-code/$f"
           done
 
       - name: Collect reports
@@ -74,12 +83,12 @@ jobs:
         run: |
           set -e
           found_reports=0
+          cd main-repo
 
           for f in reports/*_preliminary_check_report.md; do
             if [ -e "$f" ]; then
               found_reports=1
               echo "Processing $f"
-              base=$(basename "$f" _preliminary_check_report.md)
 
               comment_body="${comment_body}$(cat "$f")"$'\n\n'
             fi
@@ -99,7 +108,7 @@ jobs:
         id: cat-check-artifact-upload
         with:
           name: cat-check-images
-          path: reports/*_changes.png
+          path: main-repo/reports/*_changes.png
           if-no-files-found: ignore
       
       - name: Post PR comment with results
