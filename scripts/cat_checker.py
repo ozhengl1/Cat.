@@ -59,7 +59,7 @@ def check_if_within_template_outline_highlight_changes(template_image: Image.Ima
                 if px1 == (255, 255, 255, 255):
                     diff_mask.putpixel((x, y), (0, 0, 255, 128)) # Annotate differences with transparent blue overlay
 
-    annotated_image = Image.alpha_composite(cat_image, diff_mask) 
+    annotated_image = Image.alpha_composite(cat_image_rgba, diff_mask) 
     return (not outline_violation_found), annotated_image
 
 
