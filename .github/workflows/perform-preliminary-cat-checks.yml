@@ -11,7 +11,10 @@ on:
     paths:
       - 'cats/*.png'
 
-permissions: write-all
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
 
 jobs:
   run-script:
@@ -103,7 +106,7 @@ jobs:
         if: steps.collect-reports.outputs.found_reports == '1'
         uses: peter-evans/create-or-update-comment@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CAT_CHECKER_BOT_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ## Preliminary Cat Check Results ##
