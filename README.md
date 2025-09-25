@@ -54,14 +54,18 @@
 |:--:|:--:|:--:|
 |[oof](cats/cat_sitting_oof.png)|[patrick](cats/cat_sitting_patrick.png)|[pepe](cats/cat_sitting_pepe.png)|
 
-|<img src="cats/cat_sitting_round_glasses.png" width="200" />|<img src="cats/cat_sitting_sharingan.png" width="200" />|<img src="cats/cat_sitting_sick.png" width="200" />|
+|<img src="cats/cat_sitting_round_glasses.png" width="200" />|<img src="cats/cat_sitting_sad.png" width="200" />|<img src="cats/cat_sitting_sharingan.png" width="200" />|
 |:--:|:--:|:--:|
-|[round_glasses](cats/cat_sitting_round_glasses.png)|[sharingan](cats/cat_sitting_sharingan.png)|[sick](cats/cat_sitting_sick.png)|
+|[round_glasses](cats/cat_sitting_round_glasses.png)|[sad](cats/cat_sitting_sad.png)|[sharingan](cats/cat_sitting_sharingan.png)|
 
-|<img src="cats/cat_sitting_sideeye.png" width="200" />|<img src="cats/cat_sitting_smug.png" width="200" />|<img src="cats/cat_sitting_squidward.png" width="200" />|
+|<img src="cats/cat_sitting_sick.png" width="200" />|<img src="cats/cat_sitting_sideeye.png" width="200" />|<img src="cats/cat_sitting_smug.png" width="200" />|
 |:--:|:--:|:--:|
-|[sideeye](cats/cat_sitting_sideeye.png)|[smug](cats/cat_sitting_smug.png)|[squidward](cats/cat_sitting_squidward.png)|
+|[sick](cats/cat_sitting_sick.png)|[sideeye](cats/cat_sitting_sideeye.png)|[smug](cats/cat_sitting_smug.png)|
 
-|<img src="cats/cat_sitting_tobi.png" width="200" />|<img src="cats/cat_sitting_tobi_mask.png" width="200" />|<img src="cats/cat_sitting_uwu.png" width="200" />|
+|<img src="cats/cat_sitting_squidward.png" width="200" />|<img src="cats/cat_sitting_tobi.png" width="200" />|<img src="cats/cat_sitting_tobi_mask.png" width="200" />|
 |:--:|:--:|:--:|
-|[tobi](cats/cat_sitting_tobi.png)|[tobi_mask](cats/cat_sitting_tobi_mask.png)|[uwu](cats/cat_sitting_uwu.png)|
+|[squidward](cats/cat_sitting_squidward.png)|[tobi](cats/cat_sitting_tobi.png)|[tobi_mask](cats/cat_sitting_tobi_mask.png)|
+
+|<img src="cats/cat_sitting_uwu.png" width="200" />|
+|:--:|
+|[uwu](cats/cat_sitting_uwu.png)|
