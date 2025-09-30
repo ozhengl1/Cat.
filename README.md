@@ -75,6 +75,10 @@ ___
 ___
 #### Standing Cat gallery.
 
-|<img src="cats_2/cat_standing_2.png" width="200" />|<img src="cats_2/cat_standing_3.png" width="200" />|
-|:--:|:--:|
-|[2](cats_2/cat_standing_2.png)|[3](cats_2/cat_standing_3.png)|
+|<img src="cats_2/cat_standing_2.png" width="200" />|<img src="cats_2/cat_standing_3.png" width="200" />|<img src="cats_2/cat_standing_ditto1.png" width="200" />|
+|:--:|:--:|:--:|
+|[2](cats_2/cat_standing_2.png)|[3](cats_2/cat_standing_3.png)|[ditto1](cats_2/cat_standing_ditto1.png)|
+
+|<img src="cats_2/cat_standing_mario.png" width="200" />|
+|:--:|
+|[mario](cats_2/cat_standing_mario.png)|
