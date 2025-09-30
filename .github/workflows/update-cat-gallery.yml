@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'cats/*.png'
+      - 'cats_2/*.png'
   workflow_dispatch:
 
 permissions: 
