@@ -15,7 +15,8 @@
    - Standing cats should be added to the `cats_2/` folder
 
 #### Cat gallery.
-
+___
+#### Sitting Cat gallery.
 |<img src="cats/cat_sitting_10.png" width="200" />|<img src="cats/cat_sitting_2.png" width="200" />|<img src="cats/cat_sitting_2024NewYear.png" width="200" />|
 |:--:|:--:|:--:|
 |[10](cats/cat_sitting_10.png)|[2](cats/cat_sitting_2.png)|[2024NewYear](cats/cat_sitting_2024NewYear.png)|
@@ -71,3 +72,9 @@
 |<img src="cats/cat_sitting_tobi.png" width="200" />|<img src="cats/cat_sitting_tobi_mask.png" width="200" />|<img src="cats/cat_sitting_uwu.png" width="200" />|
 |:--:|:--:|:--:|
 |[tobi](cats/cat_sitting_tobi.png)|[tobi_mask](cats/cat_sitting_tobi_mask.png)|[uwu](cats/cat_sitting_uwu.png)|
+___
+#### Standing Cat gallery.
+
+|<img src="cats_2/cat_standing_2.png" width="200" />|<img src="cats_2/cat_standing_3.png" width="200" />|
+|:--:|:--:|
+|[2](cats_2/cat_standing_2.png)|[3](cats_2/cat_standing_3.png)|
