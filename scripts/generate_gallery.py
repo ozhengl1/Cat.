@@ -13,7 +13,10 @@ README_FILE_PATH = Path(__file__).parent.parent.resolve() / "README.md"
 SITTING_CATS_IMAGE_PREFIX = "cat_sitting_"
 STANDING_CATS_IMAGE_PREFIX = "cat_standing_"
 PNG_EXTENSION = ".png"
-CENTER_JUSTIFICATION_ELEMENT = ":--:"
+
+# Percentage width per image to keep ~3 across on desktop but wrap on mobile
+# 32% is a practical safe value to avoid accidental wrapping at desktop widths
+IMG_PERCENT_PER_ITEM = max(1, min(100, (100 // CATS_PER_ROW) - 1))  # typically 32 for 3 per row
 
 def group_list(ungrouped_list: list[str], elements_per_group: int) -> list[list[str]]:
     return [
@@ -21,25 +24,36 @@ def group_list(ungrouped_list: list[str], elements_per_group: int) -> list[list[
         for i in range(0, len(ungrouped_list), elements_per_group)
     ]
 
-def get_image_html(image_folder_name: str, filename: str) -> str:
-    return f'<img src="{image_folder_name}/{filename}" width="{IMAGE_SIZE}" />'
-
 def get_cat_name(image_prefix: str, filename: str) -> str:
     # This assumes that filename contains image_prefix, no check done for this
     return Path(filename).stem[len(image_prefix):]
 
-def get_caption_markdown(image_prefix: str, image_folder_name: str, filename: str) -> str:
-    return f"[{get_cat_name(image_prefix, filename)}]({image_folder_name}/{filename})"
+def get_image_item_html(image_prefix: str, image_folder_name: str, filename: str) -> str:
+    """
+    One gallery item: clickable image + caption beneath it.
+    Uses percentage width so images lay out 3-across on desktop and wrap on smaller screens.
+    """
+    name = get_cat_name(image_prefix, filename)
+    src = f"{image_folder_name}/{filename}"
+    # Anchor wraps image and caption so each item stays logically grouped
+    return (
+        f'<a href="{src}" title="{name}">'
+        f'<img src="{src}" alt="{name}" width="{IMG_PERCENT_PER_ITEM}%"/>'
+        f'<br><sub>{name}</sub>'
+        f'</a>'
+    )
 
-def generate_gallery_table(image_prefix: str, image_folder_name: str, filenames: list[str]) -> str:
+def generate_gallery_block(image_prefix: str, image_folder_name: str, filenames: list[str]) -> str:
     if len(filenames) == 0:
         return ""
-
-    image_row = f"|{'|'.join([get_image_html(image_folder_name, filename) for filename in filenames])}|\n"
-    center_justification_row = f"|{'|'.join([CENTER_JUSTIFICATION_ELEMENT for _ in range(len(filenames))])}|\n"
-    caption_row = f"|{'|'.join([get_caption_markdown(image_prefix, image_folder_name, filename) for filename in filenames])}|\n"
-
-    return image_row + center_justification_row + caption_row
+    # Group to encourage 3-per-row on desktop; items still wrap naturally on mobile
+    grouped = group_list(ungrouped_list=filenames, elements_per_group=CATS_PER_ROW)
+    rows = []
+    for group in grouped:
+        items_html = "".join([get_image_item_html(image_prefix, image_folder_name, fn) for fn in group])
+        # Center the row; no CSS classes or styles required
+        rows.append(f'<p align="center">{items_html}</p>')
+    return "\n".join(rows)
 
 def update_cat_gallery_in_readme(markdown_filepath: Path, sitting_cat_gallery_markdown_str: str, standing_cat_gallery_markdown_str: str) -> None:
     """
@@ -51,7 +65,6 @@ def update_cat_gallery_in_readme(markdown_filepath: Path, sitting_cat_gallery_ma
     updated_text = text[: idx + len(gallery_heading)] + "\n" + "___\n" + "#### Sitting Cat gallery.\n" + sitting_cat_gallery_markdown_str.strip() + '\n'
     updated_text +=  "___" + "\n#### Standing Cat gallery.\n\n" + standing_cat_gallery_markdown_str.strip() + '\n'
     markdown_filepath.write_text(updated_text)
-
 
 def main() -> None:
     sitting_cat_image_filenames = [
@@ -72,15 +85,12 @@ def main() -> None:
     sitting_cat_image_filenames.sort()
     standing_cat_image_filenames.sort()
 
-    grouped_sitting_cat_filenames = group_list(ungrouped_list=sitting_cat_image_filenames, elements_per_group=CATS_PER_ROW)
-    grouped_standing_cat_filenames = group_list(ungrouped_list=standing_cat_image_filenames, elements_per_group=CATS_PER_ROW)
-
-    sitting_cats_table_markdown = "\n".join([generate_gallery_table(SITTING_CATS_IMAGE_PREFIX, SITTING_CATS_IMAGE_FOLDER_NAME, image_filenames) for image_filenames in grouped_sitting_cat_filenames])
-    standing_cats_table_markdown = "\n".join([generate_gallery_table(STANDING_CATS_IMAGE_PREFIX, STANDING_CATS_IMAGE_FOLDER_NAME, image_filenames) for image_filenames in grouped_standing_cat_filenames])
-
     print("Updating README.md...")
 
-    update_cat_gallery_in_readme(README_FILE_PATH, sitting_cats_table_markdown, standing_cats_table_markdown)
+    sitting_cats_block = generate_gallery_block(SITTING_CATS_IMAGE_PREFIX, SITTING_CATS_IMAGE_FOLDER_NAME, sitting_cat_image_filenames)
+    standing_cats_block = generate_gallery_block(STANDING_CATS_IMAGE_PREFIX, STANDING_CATS_IMAGE_FOLDER_NAME, standing_cat_image_filenames)
+
+    update_cat_gallery_in_readme(README_FILE_PATH, sitting_cats_block, standing_cats_block)
 
     print("Updated README.md.")
 
